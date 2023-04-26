@@ -13,8 +13,12 @@ resource "aws_instance" "frontend" {
   }
 }
 
-output "frontend" {
-  value = aws_instance.frontend.public_ip
+resource "aws_route53_record" "frontend" {
+  zone_id = "Z086778943HEZIHKI7U9"
+  name    = "frontend.gehana26.online"
+  type    = "A"
+  ttl     = 30
+  records = [aws_instance.frontend.private_ip]
 }
 
 resource "aws_instance" "mongodb" {
