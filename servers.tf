@@ -32,7 +32,7 @@ variable "components" {
     }
   }
 }
-resource "aws_instance" "frontend" {
+resource "aws_instance" "instance" {
   for_each         = var.components
   ami              = data.aws_ami.centos.image_id
   instance_type    = each.value["instance_type"]
@@ -43,13 +43,14 @@ resource "aws_instance" "frontend" {
   }
 }
 
-#resource "aws_route53_record" "frontend" {
-#  zone_id = "Z086778943HEZIHKI7U9"
-#  name    = "frontend.gehana26.online"
-#  type    = "A"
-#  ttl     = 30
-#  records = [aws_instance.frontend.private_ip]
-#}
+resource "aws_route53_record" "records" {
+  for_each = var.components
+  zone_id = "Z086778943HEZIHKI7U9"
+  name    = "${each.value["name"]}.gehana26.online"
+  type    = "A"
+  ttl     = 30
+  records = [aws_instance.instance[each.value["name"]].private_ip]
+}
 
 #resource "aws_instance" "mongodb" {
 #  ami              = data.aws_ami.centos.image_id
