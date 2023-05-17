@@ -7,7 +7,7 @@ resource "aws_instance" "instance" {
     Name = local.name
   }
 }
-#Provisioner error
+#Provisioner error https://github.com/balatuluva/roboshop-terraform.git
 resource "null_resource" "provisioner" {
   count = var.provisioner ? 1 : 0
   depends_on = [aws_instance.instance, aws_route53_record.records]
