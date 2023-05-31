@@ -59,8 +59,8 @@ resource "aws_iam_instance_profile" "instance_profile" {
 }
 
 resource "aws_iam_role_policy" "ssm-ps-policy" {
-  name = "${var.component_name}-${var.env}-ssm-ps-policy"
-  role = aws_iam_role.role.id
+  name   = "${var.component_name}-${var.env}-ssm-ps-policy"
+  role   = aws_iam_role.role.id
   policy = jsonencode({
     "Version": "2012-10-17",
     "Statement": [
@@ -79,7 +79,6 @@ resource "aws_iam_role_policy" "ssm-ps-policy" {
           "arn:aws:ssm:us-east-1:313587121011:parameter/${var.env}.${var.component_name}.*"
         ]
       }
-
     ]
   })
 }
