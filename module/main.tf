@@ -11,9 +11,9 @@ resource "aws_instance" "instance" {
 #Provisioner error
 resource "null_resource" "provisioner" {
   depends_on = [aws_instance.instance, aws_route53_record.records]
-  triggers = {
-    private_ip = aws_instance.instance.private_ip
-  }
+#  triggers = {
+#    private_ip = aws_instance.instance.private_ip
+#  }
   provisioner "remote-exec" {
     connection {
       type = "ssh"
